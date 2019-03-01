@@ -1,19 +1,16 @@
 # Dryness-Indexes-Maps
 Generates dryness Indexes Maps using SMAP images
 
-Description:
+Satellite Data:
 
+SMAP_L3_SM_P_E (9 km spatial resolution)
+
+
+Description:
 
 Dependences:
 
-    python - Geopandas
-    python - H5py 
-    python - Pykml
-    python - Simplekml
-    python - Shapely
-    python - Pandas
+    python - Gdal
     python - NumPy
-    python - Scipy
     python - Matplolib
-    python - Basemap
 

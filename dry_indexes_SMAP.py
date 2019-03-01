@@ -6,29 +6,12 @@ Created on Fri Jul  6 07:02:59 2018
 @author: gag
 """
 
-import gdal
 import matplotlib.pyplot as plt
-import numpy.ma as np
-from matplotlib import cm
-
-from scipy.ndimage.filters import uniform_filter
-from scipy.ndimage.measurements import variance
-
-from osgeo import gdal, ogr
-import sys
-#from scipy.stats import threshold
-from scipy import stats
-import pandas as pd
 import functions
-import seaborn as sns
-
-#from mpl_toolkits.basemap import Basemap
-from numpy import linspace
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-import numpy.ma as ma
 
 
-
+### previamente se obtienen los maximos y minimos para la
+### temperatura de superficie y la humedad de suelo
 SM_Max = 0.499 
 SM_Min = 0.1236
 
@@ -93,10 +76,11 @@ print(len(fechaSMAP))
 
 
 #dir = "ggarcia"
-#dir = "gag"
-dir = "stanza"
+dir = "gag"
+# dir = "stanza"
 
-path = "/media/"+dir+"/TOURO Mobile/Trabajo_Sentinel_NDVI_CONAE/SMAP/SMAP-10km/Indices/"
+path = "/media/"+dir+"/Datos/Estancia_Italia_2018/Trabajo_Sentinel_NDVI_CONAE/SMAP/SMAP-10km/Indices/"
+
 
 for i in range(0,len(fechaSMAP)):
 
@@ -107,11 +91,11 @@ for i in range(0,len(fechaSMAP)):
     ####------------------------------------------------------------------------
    
     ### humedad de suelo de SMAP 9km
-    fileSmap = "/media/"+dir+"/TOURO Mobile/Trabajo_Sentinel_NDVI_CONAE/SMAP/SMAP-10km/"+fechaSMAP[i]+"/soil_moisture.img"
+    fileSmap = "/media/"+dir+"/Datos/Estancia_Italia_2018/Trabajo_Sentinel_NDVI_CONAE/SMAP/SMAP-10km/"+fechaSMAP[i]+"/soil_moisture.img"
     src_ds_Smap, bandSmap, GeoTSmap, ProjectSmap = functions.openFileHDF(fileSmap, 1)
 
     ### temperatura de superficie de SMAP 9km
-    fileTs = "/media/"+dir+"/TOURO Mobile/Trabajo_Sentinel_NDVI_CONAE/SMAP/SMAP-10km/"+fechaSMAP[i]+"/surface_temperature.img"
+    fileTs = "/media/"+dir+"/Datos/Estancia_Italia_2018/Trabajo_Sentinel_NDVI_CONAE/SMAP/SMAP-10km/"+fechaSMAP[i]+"/surface_temperature.img"
     src_ds_Ts, bandTs, GeoTTs, ProjectTs = functions.openFileHDF(fileTs, 1)
     ####------------------------------------------------------------------------
 
@@ -128,9 +112,10 @@ for i in range(0,len(fechaSMAP)):
     match = functions.matchData(data_src, data_match, type, nRow, nCol)
     band_matchSM = match.ReadAsArray()#  
 
-#    fig, ax = plt.subplots()
-#    im0 = ax.imshow(band_matchSM, interpolation='None',cmap='gray')
-#    
+    fig, ax = plt.subplots()
+    im0 = ax.imshow(band_matchSM, interpolation='None',cmap='gray')
+    plt.show()
+   
     data_src = src_ds_Ts
     data_match = src_ds_Smap_subset
     match = functions.matchData(data_src, data_match, type, nRow, nCol)
@@ -146,3 +131,4 @@ for i in range(0,len(fechaSMAP)):
 
 
 print("FIN")
+
