@@ -8,6 +8,8 @@ Created on Fri Jul  6 07:02:59 2018
 
 import matplotlib.pyplot as plt
 import functions
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
 
 
 ### previamente se obtienen los maximos y minimos para la
@@ -104,26 +106,58 @@ for i in range(0,len(fechaSMAP)):
     src_ds_Smap_subset, bandSmap_subset, GeoTSmap_subset, ProjectSmap_subset = functions.openFileHDF(fileSMAP_subset, 1)
     ####------------------------------------------------------------------------
 
+    transform = GeoTSmap_subset
+    xmin,xmax,ymin,ymax=transform[0],transform[0]+transform[1]*src_ds_Smap_subset.RasterXSize,transform[3]+transform[5]*src_ds_Smap_subset.RasterYSize,transform[3]
+    print(xmin)
+    print(xmax)
+
+
+
+
+
     nRow, nCol = bandSmap_subset.shape
 
     type = "Nearest"
     data_src = src_ds_Smap
     data_match = src_ds_Smap_subset
     match = functions.matchData(data_src, data_match, type, nRow, nCol)
-    band_matchSM = match.ReadAsArray()#  
+    band_matchSM = match.ReadAsArray()
 
-    fig, ax = plt.subplots()
-    im0 = ax.imshow(band_matchSM, interpolation='None',cmap='gray')
-    plt.show()
    
     data_src = src_ds_Ts
     data_match = src_ds_Smap_subset
     match = functions.matchData(data_src, data_match, type, nRow, nCol)
-    band_matchTs = match.ReadAsArray()#  
+    band_matchTs = match.ReadAsArray()  
 
+
+    ### Temperature Condition Index (TCI)
     TCI = (Ts_Max - band_matchTs) /(Ts_Max - Ts_Min)
     
+    ### The normalized soil moisture indexes (HSCI)
     HSCI = (SM_Max - band_matchSM)/(SM_Max - SM_Min)
+
+
+    fig, ax = plt.subplots()
+    im0 = ax.imshow(TCI, extent=[xmin,xmax,ymin,ymax], interpolation='None',cmap='gray')
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("right", size="5%", pad=0.05)
+    plt.colorbar(im0, cax=cax)
+    ax.set_title('Temperature Condition Index (TCI)')
+    ax.yaxis.set_major_locator(plt.MaxNLocator(5))
+    ax.xaxis.set_major_locator(plt.MaxNLocator(5))
+    # ax.xaxis.tick_top()
+
+    fig, ax = plt.subplots()
+    im1 = ax.imshow(HSCI, extent=[xmin,xmax,ymin,ymax], interpolation='None',cmap='gray')
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("right", size="5%", pad=0.05)
+    plt.colorbar(im1, cax=cax)
+    ax.set_title('Normalized soil moisture indexes (HSCI)')
+    ax.yaxis.set_major_locator(plt.MaxNLocator(5))
+    ax.xaxis.set_major_locator(plt.MaxNLocator(5))
+
+
+    plt.show()
 
 
     functions.createHDFfile(path, nameFileTCI, 'ENVI', TCI, nCol, nRow, GeoTSmap_subset, ProjectSmap_subset)
