@@ -108,12 +108,8 @@ for i in range(0,len(fechaSMAP)):
 
     transform = GeoTSmap_subset
     xmin,xmax,ymin,ymax=transform[0],transform[0]+transform[1]*src_ds_Smap_subset.RasterXSize,transform[3]+transform[5]*src_ds_Smap_subset.RasterYSize,transform[3]
-    print(xmin)
-    print(xmax)
-
-
-
-
+    # print(xmin)
+    # print(xmax)
 
     nRow, nCol = bandSmap_subset.shape
 
