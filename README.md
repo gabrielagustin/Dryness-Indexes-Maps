@@ -1,7 +1,8 @@
 # Dryness-Indexes-Maps
 Generates dryness indexes maps using SMAP images. The indices applied are:
-    - Temperature Condition Index (TCI)
-    - Normalized Soil Moisture Index (HSCI)
+
+- Temperature Condition Index (TCI)
+- Normalized Soil Moisture Index (HSCI)
 
 Satellite Data:
 
