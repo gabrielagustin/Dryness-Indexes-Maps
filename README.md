@@ -6,7 +6,7 @@ Generates dryness indexes maps using SMAP images. The indices applied are:
 
 Satellite Data:
 
- SMAP_L3_SM_P_E (9 km spatial resolution)
+- SMAP_L3_SM_P_E (9 km spatial resolution)
 
 
 <p align="center">
@@ -16,6 +16,8 @@ Satellite Data:
 
 
 References: 
+
+https://nsidc.org/sites/nsidc.org/files/technical-references/D56292%20SMAP%20L3_SM_P_E%20PSD%20Version%201_0.pdf
 
 Dependences:
 
