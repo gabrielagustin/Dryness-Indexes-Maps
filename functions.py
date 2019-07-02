@@ -101,7 +101,7 @@ def matchData(data_src, data_match, type, nRow, nCol):
     -----------
     data_src: source raster
     data_match: raster to match
-    type: method de interpolación a aplicar "Nearest", "Bilinear", "Cubic""Average"
+    type: interpolation method to apply. "Nearest", "Bilinear", "Cubic", "Average"
     nRow, nCol: number of rows and columns of the image
 
     Returns:
