@@ -16,14 +16,21 @@ import matplotlib.pyplot as plt
 
 
 def openFileHDF(file, nroBand):
+    """Function that opens a raster image
+
+    Parameters:
+    -----------
+    file : full path of the raster image
+    nroBand: number of the band to read
+
+    Returns:
+    --------
+    src_ds: raster
+    band: raster as arrays
+    GeoT: raster georeference info
+    Project: projections
     """
-    Funcion que recibe path completo de la imagen raster y el numero de banda a leer
-    retorna el objeto source del raster, banda y las caracteristicas del raster 
-    geotransformación y la proyeccion
-    """
-    #print "Open File"
-    # file = path+nameFile
-    #print file
+
     try:
         src_ds = gdal.Open(file)
     except (RuntimeError, e):
@@ -55,12 +62,24 @@ def openFileHDF(file, nroBand):
 
 
 
-def createHDFfile(path, nameFileOut, driver, img, xsize, ysize, GeoT, Projection):
+def createHDFfile(nameFileOut, driver, GeoT, Projection, img, xsize, ysize):
+    """Function that creates an HDF file based on the Geotransform and Projection 
+       data from an original image
+
+    Parameters:
+    -----------
+    nameFileOut: full path of the raster image to be created
+    driver: "GTiff", "netCDF", "MEM",...
+    GeoT: raster georeference info
+    Project: projections
+    img: raster as arrays
+    xsize, ysize: number of columns and rows of the image
+
+    Returns:
+    --------
+
     """
-    Funcion que crea un archivo HDF basado en los datos Geotransform y Projection
-    de la imagen original, recibe ademas el nombre del archivo de salida, el tipo
-    de archivo a crear, la imagen y su tamaño
-    """
+    
     print("archivo creado:" + str(nameFileOut))
     driver = gdal.GetDriverByName(driver)
     ds = driver.Create(path + nameFileOut, xsize, ysize, 1, gdal.GDT_Float64)
@@ -95,3 +114,5 @@ def matchData(data_src, data_match, type, nRow, nCol):
     if (type == "Average"):
         gdal.ReprojectImage(data_src, data_result, data_src.GetProjection(), data_match.GetProjection(), gdal.GRA_Average)
     return data_result
+
+
