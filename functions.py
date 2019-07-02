@@ -58,11 +58,12 @@ def openFileHDF(file, nroBand):
         print(e)
         sys.exit(1)
     band = srcband.ReadAsArray()
+
     return src_ds, band, GeoT, Project
 
 
 
-def createHDFfile(nameFileOut, driver, GeoT, Projection, img, xsize, ysize):
+def createHDFfile(nameFileOut, driver, GeoT, Projection, img, nRow, nCol):
     """Function that creates an HDF file based on the Geotransform and Projection 
        data from an original image
 
@@ -73,7 +74,7 @@ def createHDFfile(nameFileOut, driver, GeoT, Projection, img, xsize, ysize):
     GeoT: raster georeference info
     Project: projections
     img: raster as arrays
-    xsize, ysize: number of columns and rows of the image
+    nRow, nCol: number of rows and columns of the image
 
     Returns:
     --------
@@ -87,15 +88,28 @@ def createHDFfile(nameFileOut, driver, GeoT, Projection, img, xsize, ysize):
     geotransform = GeoT
     ds.SetGeoTransform(geotransform)
     ds.GetRasterBand(1).WriteArray(np.array(img))
+
     return
 
 
 def matchData(data_src, data_match, type, nRow, nCol):
+    """Function that modifies a raster image based on a source raster. 
+       Applies geo-transformation and projection from source raster 
+       and modifies the size.
+
+    Parameters:
+    -----------
+    data_src: source raster
+    data_match: raster to match
+    type: method de interpolación a aplicar "Nearest", "Bilinear", "Cubic""Average"
+    nRow, nCol: number of rows and columns of the image
+
+    Returns:
+    --------
+    data_result: raster
+
     """
-    Funcion que retorna la informacion presente en el raster data_scr
-    modificada con los datos de proyeccion y transformacion del raster data_match
-    se crea un raster en memoria que va a ser el resultado    
-    """
+
     #data_result = gdal.GetDriverByName('MEM').Create('', data_match.RasterXSize, data_match.RasterYSize, 1, gdalconst.GDT_Float64)
 
     data_result = gdal.GetDriverByName('MEM').Create('', nCol, nRow, 1, gdalconst.GDT_Float64)
@@ -113,6 +127,7 @@ def matchData(data_src, data_match, type, nRow, nCol):
         gdal.ReprojectImage(data_src, data_result, data_src.GetProjection(), data_match.GetProjection(), gdalconst.GRA_Cubic)
     if (type == "Average"):
         gdal.ReprojectImage(data_src, data_result, data_src.GetProjection(), data_match.GetProjection(), gdal.GRA_Average)
+
     return data_result
 
 
