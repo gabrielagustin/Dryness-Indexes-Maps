@@ -6,7 +6,7 @@ Generates dryness indexes maps using SMAP images. The indices applied are:
 
 Satellite Data:
 
-- SMAP_L3_SM_P_E (9 km spatial resolution)
+- SMAP Enhanced Level 3 Passive Soil Moisture Product (SMAP_L3_SM_P_E):  9 km spatial resolution
 
 
 <p align="center">
