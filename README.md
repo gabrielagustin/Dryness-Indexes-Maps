@@ -18,6 +18,7 @@ Satellite Data:
 References: 
 
  https://www.researchgate.net/publication/236577458_USE_OF_NOAAAVHRR-BASED_VEGETATION_CONDITION_INDEX_VCI_AND_TEMPERATURE_CONDITION_INDEX_TCI_FOR_DROUGHT_MONITORING_IN_THESSALY_GREECE
+
  https://nsidc.org/sites/nsidc.org/files/technical-references/D56292%20SMAP%20L3_SM_P_E%20PSD%20Version%201_0.pdf
 
 Dependences:
