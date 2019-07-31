@@ -14,6 +14,9 @@ Satellite Data:
   <img width=425 src="HSCI.png"/>
 </p>
 
+TCI  and  the  HSCI  varies  from  zero,  for  extremely  unfavorable  conditions,  to  1,  for  optimal conditions. 
+
+
 
 References: 
 
