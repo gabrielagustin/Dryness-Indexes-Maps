@@ -91,23 +91,20 @@ def createHDFfile(nameFileOut, driver, GeoT, Projection, img, nRow, nCol):
 
     return
 
-
-def matchData(data_src, data_match, type, nRow, nCol):
+  
+def matchData(data_src, data_src_match, type, nRow, nCol):
     """Function that modifies a raster image based on a source raster. 
        Applies geo-transformation and projection from source raster 
        and modifies the size.
-
     Parameters:
     -----------
     data_src: source raster
-    data_match: raster to match
+    data_src_match: raster to match
     type: interpolation method to apply. "Nearest", "Bilinear", "Cubic", "Average"
     nRow, nCol: number of rows and columns of the image
-
     Returns:
     --------
     data_result: raster
-
     """
 
     #data_result = gdal.GetDriverByName('MEM').Create('', data_match.RasterXSize, data_match.RasterYSize, 1, gdalconst.GDT_Float64)
